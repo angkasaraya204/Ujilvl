@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        background-image: url(https://images.unsplash.com/photo-1581309638082-877cb8132535?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80);
+        background-size: cover;
+      }
+
+      .container {
+        width: 79%;
+        background-color: gray;
+      }
+
+      .navbar {
+        background-color: #1C1716;
+        width: auto;
+      }
+
+      .takeaway {
+        font-size: 20px;
+        font-family: 'Bubblegum Sans', cursive;
+      }
+
+      .namaakun {
+        font-size: 20px;
+        font-family: 'Bubblegum Sans', cursive;
+      }
+
+      .card-text {
+        font-size: 15px;
+        color: steelblue;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      }
+
+      .card-title {
+        font-size: 15px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-style: bold;
+      }
+
+      .card-body {
+        height: 150px;
+      }
+
+      .bg-darkblue {
+        background-color: #1C1716;
+      }
+      .card-img-top {
+        width: 85%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .card-img {
+        width: 32%;
+        justify-items: right;
+        margin-right: 35px;
+      }
+
+      .card-body-2 {
+        height: auto;
+      }
+
+      #listkeranjang {
+        height: 385px; 
+        width: 100%;
+        margin-top: 5px;
+        background-color: lightgrey;
+        border: 2px solid #cccccc; 
+        overflow: auto;
+      }
+      .bg-darkblue{
+        background-color: darkblue;
+      }
+      .navbar-brand {
+        font-family: 'Fredoka One', cursive;
+      }
+      .scrolls {
+            height: 100px; 
+            width: 100%;
+            background-color: white;
+            border: 2px solid #cccccc; 
+            overflow: auto;
+        }
+    </style>
+
+    <title>Starbhak Mart</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <nav class="navbar bg-darkblue">
+        <a class="navbar-brand text-white">Starbhak Mart</a>
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </nav>
+
+      <div class="row">
+        <div class="col-4">
+          <div class="takeaway text-white text-center bg-primary mt-1">Take Away<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down ml-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg></div>
+          <div class="namaakun text-white text-center bg-primary mt-1"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+          </svg>Angkasa Raya</div>
+
+          <div id="listkeranjang"></div>
+
+          <table class="mt-1" width="100%">
+            <tr class="bg-light">
+              <td>Discount (5%)</td>
+              <td>Rp. <span id="discount"></span></td>
+            </tr>
+            <tr class="bg-light">
+              <td>PPN (10%)</td>
+              <td>Rp. <span id="pajak"></span></td>
+            </tr>
+            <tr class="bg-primary text-white">
+              <td>Total Bayar</td>
+              <td>Rp. <span id="totalbayar"></span></td>
+            </tr>
+          </table>
+
+          <button type="button" class="btn mt-1 btn-warning btn-block" onclick="add()">Bayar <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cash-stack ml-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 3H1a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1h-1z"/>
+            <path fill-rule="evenodd" d="M15 5H1v8h14V5zM1 4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H1z"/>
+            <path d="M13 5a2 2 0 0 0 2 2V5h-2zM3 5a2 2 0 0 1-2 2V5h2zm10 8a2 2 0 0 1 2-2v2h-2zM3 13a2 2 0 0 0-2-2v2h2zm7-4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+          </svg></button>
+        </div>
+
+        <div class="col-8 mt-1" id="listproduk">
+          <div class="card float-left mr-2 mb-1" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5ee1e723e140d.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Msi Radeon RX 5600</h5>
+              <p class="card-text">Rp 5.700.000</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+          <div class="card float-left mr-2 mb-1" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5c415933d2d04.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Synology DS220+</h5>
+              <p class="card-text">Rp 6.653.000</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+          <div class="card float-left mr-2 mb-1" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5d9412d194273.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Rexus RGC 101 Blue</h5>
+              <p class="card-text">Rp 2.350.000</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+          <div class="card float-left mr-2 mb-1" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5b963664e822c.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Logitech G Pro Headset</h5>
+              <p class="card-text">Rp 1.642.799</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+          <div class="card float-left mr-2" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5af12a4a9a9f4.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Lenovo ThinkPad E480</h5>
+              <p class="card-text">Rp 16.475.000</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+          <div class="card float-left mr-2" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5ba89701c836b.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Dell Inspiron 3470</h5>
+              <p class="card-text">Rp 7.346.000</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+          <div class="card float-left mr-2" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5f2b7affc1369.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Oppo Find X2 Pro</h5>
+              <p class="card-text">Rp 16.443.000</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+          <div class="card float-left mr-2" style="width: 10rem;">
+            <img src="https://static.bmdstatic.com/pk/product/thumbnail/5e451b765450f.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">Samsung Galaxy Z Flip</h5>
+              <p class="card-text">Rp 23.888.000</p>
+              <a href="#" class="btn btn-warning btn-block">Beli</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scrolls">
+      <table class="table-bordered text-black text-center bg-light mt-2 mb-2" width="100%">
+        <thead>
+          <tr class="text-white text-center bg-dark">
+            <th>No</th>
+            <th>Nama Produk</th>
+            <th>Harga Produk</th>
+            <th>Discount</th>
+            <th>PPN</th>
+            <th>Total Harga</th>
+            <th>Modify</th>
+          </tr>
+        </thead>
+        <tbody id='tampildata'>
+
+        </tbody>
+      </table>
+    </div>
+
+      <footer class="page-footer font-small bg-darkblue mt-1">
+        <div class="footer-copyright text-center text-white py-3">© 2020 Copyright - Angkasa Raya</div>
+      </footer>
+    </div>
+
+  <script>
+
+    var namabarang = ['Msi Radeon RX 5600', 'Synology DS220+', 'Rexus RGC 101 Blue', 'Logitech G Pro Headset', 'Lenovo ThinkPad E480', 'Dell Inspiron 3470', 'Oppo Find X2 Pro', 'Samsung Galaxy Z Flip']
+    var hargabarang = [5700000, 6653000, 2350000, 1642700, 16475000, 7346000, 16443000, 23888000]
+    var gambarbarang = ['https://static.bmdstatic.com/pk/product/thumbnail/5ee1e723e140d.jpg', 'https://static.bmdstatic.com/pk/product/thumbnail/5c415933d2d04.jpg', 'https://static.bmdstatic.com/pk/product/thumbnail/5d9412d194273.jpg', 'https://static.bmdstatic.com/pk/product/thumbnail/5b963664e822c.jpg', 'https://static.bmdstatic.com/pk/product/thumbnail/5af12a4a9a9f4.jpg', 'https://static.bmdstatic.com/pk/product/thumbnail/5ba89701c836b.jpg', 'https://static.bmdstatic.com/pk/product/thumbnail/5f2b7affc1369.jpg', 'https://static.bmdstatic.com/pk/product/thumbnail/5e451b765450f.jpg']
+
+    var listproduk = document.getElementById('listproduk')
+
+    function showProduk() {
+      listproduk.innerHTML = ''
+
+      for (let i = 0; i < namabarang.length; i++) {
+        listproduk.innerHTML += '<div class="card float-left mr-2 mb-1" style="width: 10rem;">'+
+            '<img src="'+gambarbarang[i]+'" class="card-img-top" alt="...">'+
+            '<div class="card-body">'+
+              '<h5 class="card-title">'+namabarang[i]+'</h5>'+
+              '<p class="card-text">Rp. '+hargabarang[i]+'</p>'+
+              '<a href="#" class="btn btn-warning btn-block" onclick="tambahKeranjang('+i+')">Beli <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-basket" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'+
+              '<path fill-rule="evenodd" d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>'+
+            '</svg></a>'+
+            '</div>'+
+          '</div>'
+      }
+
+    }
+    showProduk()
+
+    var namabarang_keranjang = []
+    var hargabarang_keranjang = []
+
+    function tambahKeranjang(id) {
+      namabarang_keranjang.push(namabarang[id])
+      hargabarang_keranjang.push(hargabarang[id])
+
+      showKeranjang()
+    }
+
+    var listkeranjang = document.getElementById('listkeranjang')
+    var tampildiscount = document.getElementById('discount')
+    var tampilpajak = document.getElementById('pajak')
+    var tampiltotalbayar = document.getElementById('totalbayar')
+
+    var diskon1 
+    var pajak1
+    var totalbelanja
+
+    function showKeranjang() {
+      listkeranjang.innerHTML = ""
+
+      var diskon2 = 0
+      var pajak2 = 0
+      var hargatotal = 0
+      var totalbayar = 0
+
+      for (let i = 0; i < namabarang_keranjang.length; i++) {
+      listkeranjang.innerHTML += '<div class="card mr-2 mt-1" style="width: 100%;">'+
+            '<div class="card-body-2">'+
+              '<img src="'+gambarbarang[i]+'" class="card-img float-left" alt="...">'+
+              '<h5 class="card-title">'+namabarang_keranjang[i]+'</h5>'+
+              '<p class="card-text">Rp. '+hargabarang_keranjang[i]+'</p>'+
+              '<p>Qty : 1</p>'+
+              '<a href="#" class="btn btn-danger btn-block" onclick="deleteitem('+i+')">Hapus</a>'+
+            '</div>'+
+          '</div>'
+
+	        hargatotal = hargabarang_keranjang[i] + hargatotal
+          if(hargatotal >= 4000000) {
+            diskon1 = hargatotal * 0.05
+          }else{
+            diskon1 = 0
+          }
+
+          totalbayar = hargatotal - diskon1 
+          pajak1 = hargatotal * 0.1
+          totalbelanja = totalbayar - pajak1
+
+          tampilpajak.innerHTML = pajak1
+          tampildiscount.innerHTML = diskon1
+          tampiltotalbayar.innerHTML = totalbelanja
+      }
+    }
+
+    function deleteitem(id) {
+      namabarang_keranjang.splice(id,1)
+      hargabarang_keranjang.splice(id,1)
+
+      showKeranjang()
+    }
+
+    var namabrg = []
+    var hargabrg = []
+    var diskon3 = []
+    var pajak3 = []
+    var total = []
+
+    var tampil = document.getElementById('tampildata')
+
+    function show() {
+    tampil.innerHTML = ""
+
+    for(i = 0;i < namabrg.length; i++) {
+      const no = i+1
+        tampil.innerHTML += '<tr>'+
+          '<td>'+no+'</td>'+
+          '<td>'+namabrg[i]+'</td>'+
+          '<td>'+hargabrg[i]+'</td>'+
+          '<td>'+diskon3[i]+'</td>'+
+          '<td>'+pajak3[i]+'</td>'+
+          '<td>'+total[i]+'</td>'+
+          '<td>'+
+          '<button class="btn btn-warning mr-2" onclick="edit(' + i + ')">Edit</button> '+
+          '<button class="btn btn-danger mr-2" onclick="hapus(' + i + ')">Hapus</button>'+
+          '</td>'+
+          '</tr>'
+        }
+    }
+    show()
+
+      function add() {
+        namabrg.push(namabarang_keranjang)
+        hargabrg.push(hargabarang_keranjang)
+        diskon3.push(diskon1)
+        pajak3.push(pajak1)
+        total.push(totalbelanja)
+
+      show()
+    }
+
+      function hapus(id) {
+        namabrg.splice(id,1)
+        hargabrg.splice(id,1)
+        diskon3.splice(id,1)
+        pajak3.splice(id,1)
+        total.splice(id,1)
+
+      show()
+      }
+
+    var baru = []
+      function edit(id) {
+        namabarang_keranjang.value = namabrg[id]
+        hargabarang_keranjang.value = hrgabrg[id]
+
+      baru.push(id)
+      }
+
+      function simpan() {
+        var namasimpan = namabarang_keranjang
+        var hargasimpan = hargabarang_keranjang
+        var diskonsimpan = discount2
+        var pajaksimpan = pajak2
+        var totalsimpan = totalbelanja
+
+        namabrg[baru] = namasimpan
+        hargabrg[baru] = hargasimpan
+        diskon3[baru] = diskonsimpan
+        pajak3[baru] = pajaksimpan
+        total[baru] = totalsimpan
+
+      show()
+      baru.pop()
+      }
+  </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  </body>
+</html>
