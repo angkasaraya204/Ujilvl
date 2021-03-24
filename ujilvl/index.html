@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./favicon.ico">
+
+    <title>Starbhak Mart | Uji Level Tahap 1</title>
+    <style>
+        .card {
+            width: 650px;
+            height: 530px;
+        }
+        .card-header {
+            width: 650px;
+        }
+        .container {
+            width: 700px;
+        }
+        .bg-image {
+            background-image: url(https://images.unsplash.com/photo-1541727687969-ce40493cd847?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMzk2fQ&auto=format&fit=crop&w=1569&q=80);
+            background-size: cover;
+            background-position: center;
+            padding-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image">
+    <div class="container">
+        <div class="card">
+            <h4 class="card-header bg-primary text-black text-center">FORM MASTER dan STOCK DATA BARANG</h4>
+
+            <div class="card-body">
+            <div class="form-group row justify-content-center">
+            <label for="kodeproduk" class="col-sm-3 col-form-label">Kode Produk</label>
+            <div class="col-sm-6">
+                <input type="text" id="kodepro" class="form-control" autocomplete="off" readonly placeholder="MD-01" />
+            </div>
+            </div>
+            <div class="form-group row justify-content-center">
+            <label for="namaproduk" class="col-sm-3 col-form-label">Nama Produk</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="namapro" placeholder="Ext: Jus Jambu">
+            </div>
+            </div>
+            <div class="form-group row justify-content-center">
+            <label for="hargaproduk" class="col-sm-3 col-form-label">Harga Produk</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="harpro" placeholder="Ext: Rp 15.000">
+            </div>
+            </div>
+            <div class="form-group row justify-content-center">
+            <label for="satuan" class="col-sm-3 col-form-label">Satuan</label>
+            <div class="col-sm-6">
+                <select class="form-control" id="satuan">
+                    <option value="Gelas">Gelas</option>
+                    <option value="Botol">Botol</option>
+                </select>
+            </div>
+            </div>
+            <div class="form-group row justify-content-center">
+            <label for="kategori" class="col-sm-3 col-form-label">Kategori</label>
+            <div class="col-sm-6">
+                <select class="form-control" id="katpro">
+                    <option value="Minuman Hangat">Minuman Hangat</option>
+                    <option value="Minuman Dingin">Minuman Dingin</option>
+                </select>
+            </div>
+            </div>
+            <div class="form-group row justify-content-center">
+            <label for="urlgambar" class="col-sm-3 col-form-label">Url Gambar</label>
+            <div class="col-sm-6">
+                <input type="url" class="form-control" id="urlgmbr" placeholder="Ext: http://google.com/gambar.png">
+            </div>
+            </div>
+            <div class="form-group row justify-content-center">
+            <label for="stokawal" class="col-sm-3 col-form-label">Stok Awal</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="stawal" placeholder="Ext: 100">
+            </div>
+            </div>
+            <div class="form-group row justify-content-center">
+            <div class="col-sm-9">
+                <button class="btn btn-primary" onclick="add()">Simpan</button>
+                <button class="btn btn-primary" onclick="datasimpan()">Ganti</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+        <div class="container-sm mt-3">
+        <table class="table table-bordered text-center bg-light">
+            <thead class="bg-primary">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Kode Produk</th>
+                <th scope="col">Nama Produk</th>
+                <th scope="col">Harga Produk</th>
+                <th scope="col">Satuan</th>
+                <th scope="col">Kategori Produk</th>
+                <th scope="col">Stok Produk</th>
+                <th scope="col">Gambar Produk</th>
+                <th scope="col">Modify</th>
+            </tr>
+            </thead>
+            <tbody id='tampildata'>
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <script>
+                    var kodeproduk = []
+            var namaproduk = []
+            var hargaproduk = []
+            var satuan = []
+            var kategori = []
+            var stokawal = []
+            var urlgambar = []
+    
+            var tampil = document.getElementById('tampildata')
+    
+            function showData() {
+            tampil.innerHTML = ""
+    
+            for (i = 0; i < kodeproduk.length; i++) {
+                var nodata = i + 1
+                var kode = Number(i+1)
+                tampil.innerHTML += "<tr>" +
+                "<th>" + nodata + "</th>" +
+                "<td>" + "MD-00" + kode + kodeproduk[i] + "</td>" +
+                "<td>" + namaproduk[i] + "</td>" +
+                "<td>" + "Rp " + hargaproduk[i] + "</td>" +
+                "<td>" + satuan[i] + "</td>" +
+                "<td>" + kategori[i] + "</td>" +
+                "<td id='stok" + nodata + "'>" + stokawal[i] + "</td>" +
+                "<th>" + "<img src='" + urlgambar[i] +"' style='width: 150px; height: 95px' alt='gambar'>" + "</th>" +
+                "<td>" +
+                "<button class='btn btn-primary' onclick='editdata(" + i + ")'>Edit</button>" +
+                "<button class='btn btn-danger' onclick='hapusdata(" + i + ")'>Hapus</button>" +
+                "</td>" +
+                "</tr>"
+
+            var stock = document.getElementById('stok'+nodata+'')
+            if (Number(stock.innerHTML) < 11) {
+                stock.style.backgroundColor = "#e74c3c"
+                stock.style.color = "#fff"
+            } else {
+                stock.style.backgroundColor = ""
+                stock.style.color = ""
+            }
+            }
+        }
+    
+            function add() {
+            var kodebaru = document.getElementById('kodepro').value
+            var namabaru = document.getElementById('namapro').value
+            var hargabaru = document.getElementById('harpro').value
+            var satbaru = document.getElementById('satuan').value
+            var kategbaru = document.getElementById('katpro').value
+            var stokbaru = document.getElementById('stawal').value
+            var urlbaru = document.getElementById('urlgmbr').value
+    
+            kodeproduk.push(kodebaru)
+            namaproduk.push(namabaru)
+            hargaproduk.push(hargabaru)
+            satuan.push(satbaru)
+            kategori.push(kategbaru)
+            stokawal.push(stokbaru)
+            urlgambar.push(urlbaru)
+            showData()
+            }
+
+            function hapusdata(i) {
+                if (confirm('Data Ini Akan Di Hapus. Anda Yakin Ingin Menghapusnya?')) {
+            kodeproduk.splice(i, 1);
+            namaproduk.splice(i, 1);
+            hargaproduk.splice(i, 1);
+            satuan.splice(i, 1);
+            kategori.splice(i, 1);
+            stokawal.splice(i, 1);
+            urlgambar.splice(i, 1);
+    
+            showData()
+            } else {
+            }
+            }
+            
+            var index = []
+    
+            function editdata(i) {
+                var kodebaru = document.getElementById('kodepro').value = kodeproduk[i]
+                var namabaru = document.getElementById('namapro').value = namaproduk[i]
+                var hargabaru = document.getElementById('harpro').value = hargaproduk[i]
+                var satbaru = document.getElementById('satuan').value = satuan[i]
+                var kategbaru = document.getElementById('katpro').value = kategori[i]
+                var stokbaru = document.getElementById('stawal').value = stokawal[i]
+                var urlbaru = document.getElementById('urlgmbr').value = urlgambar[i]
+
+                kodeproduk[index] = kodebaru
+                namaproduk[index] = namabaru
+                hargaproduk[index] = hargabaru
+                satuan[index] = satbaru
+                kategori[index] = kategbaru
+                stokawal[index] = stokbaru
+                urlgambar[index] = urlbaru
+
+                index = i
+                showData()
+            }
+    
+            function datasimpan() {
+            var svkode = document.getElementById('kodepro').value
+            var svnama = document.getElementById('namapro').value
+            var svharga = document.getElementById('harpro').value
+            var svsatuan = document.getElementById('satuan').value
+            var svkategori = document.getElementById('katpro').value
+            var svstok = document.getElementById('stawal').value
+            var svurl = document.getElementById('urlgmbr').value
+    
+            kodeproduk[index] = svkode
+            namaproduk[index] = svnama
+            hargaproduk[index] = svharga
+            satuan[index] = svsatuan
+            kategori[index] = svkategori
+            stokawal[index] = svstok
+            urlgambar[index] = svurl
+
+            showData()
+            }
+
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>
